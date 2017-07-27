@@ -59,8 +59,8 @@ public class Model {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullName() {
+        this.fullName = lastName + " " + firstName + " " + middleName;
     }
 
     public String getNickName() {
@@ -193,12 +193,13 @@ public class Model {
 
     @Override
     public String toString() {
-        return fullName + "\n" +
-                nickName + ": " + comment + "\n" +
-                groups + "\n" +
-                homePhone + " " + mobilePhone + " " + mobilePhone2 + "\n" +
-                eMail + " " + skype + "\n" +
-                address + "\n" +
-                dateAdded + " " + dateLastChange + "\n";
+        return "Full Name: " +  fullName + "\n" +
+                "Nickname: " + nickName + "\n" +
+                "Comment: " + comment + "\n" +
+                "Groups: " + groups + "\n" +
+                "Home phone: " + homePhone + "; Mobile phone: " + mobilePhone + "; Second Mobile Phone: " + mobilePhone2 + "\n" +
+                "Email: " + eMail + "; Skype: " + skype + "\n" +
+                "Full address: " + address + "\n" +
+                "Date added: " + dateAdded + "; Date changed: " + dateLastChange + "\n";
     }
 }
