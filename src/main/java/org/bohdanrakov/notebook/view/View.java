@@ -2,6 +2,7 @@ package org.bohdanrakov.notebook.view;
 
 public class View {
 
+    public static final String WRONG_INPUT = "Wrong input! Try Again:";
     public static final String INPUT_FIRST_NAME = "Input First Name:";
     public static final String INPUT_LAST_NAME = "Input Last Name:";
     public static final String INPUT_MIDDLE_NAME = "Input Middle Name:";

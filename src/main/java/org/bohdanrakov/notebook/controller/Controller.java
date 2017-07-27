@@ -18,11 +18,30 @@ public class Controller {
     public void processUser() {
         Scanner scanner = new Scanner(System.in);
 
+        model.seteMail(getUserInputRegex(scanner, View.INPUT_EMAIL, Regexes.eMail));
+
+        System.out.println(model);
 
     }
 
-    public String getUserInputRegex() {
-        return "";
+    /**
+     * Checks users Input for regex. If it matches, returns input. If not,
+     * user is asked again
+     * @param sc Input {@code Scanner}
+     * @param message Message info to print for user
+     * @param regex regular expression to match user input
+     * @return user input
+     */
+    private String getUserInputRegex(Scanner sc, String message, String regex) {
+        view.printMessage(message);
+        String input = sc.next();
+
+        while (!input.matches(regex)) {
+            view.printMessage(View.WRONG_INPUT);
+            input = sc.next();
+        }
+
+        return input;
     }
 
 }
