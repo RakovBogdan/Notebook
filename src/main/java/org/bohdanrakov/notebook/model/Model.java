@@ -4,24 +4,27 @@ import java.util.List;
 
 public class Model {
 
+    private String login;
     private String firstName;
     private String lastName;
+
     private String middleName;
+
     private String fullName;
-
     private String nickName;
-    private String comment;
 
+    private String comment;
     private List<Group> groups;
 
     private String homePhone;
+
     private String mobilePhone;
     private String mobilePhone2;
-
     private String eMail;
-    private String skype;
 
+    private String skype;
     private String index;
+
     private String city;
     private String street;
     private String home;
@@ -30,6 +33,14 @@ public class Model {
 
     private String dateAdded;
     private String dateLastChange;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -193,7 +204,8 @@ public class Model {
 
     @Override
     public String toString() {
-        return "Full Name: " +  fullName + "\n" +
+        return "Login: " + login + "\n" +
+                "Full Name: " +  fullName + "\n" +
                 "Nickname: " + nickName + "\n" +
                 "Comment: " + comment + "\n" +
                 "Groups: " + groups + "\n" +
