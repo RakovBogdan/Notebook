@@ -3,13 +3,16 @@ package org.bohdanrakov.notebook.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Stub that acts like a database.
+ */
 public class AllUsers {
 
     private List<Model> users = new ArrayList<>();
 
-    public AllUsers() {
+    public void addUserWithLoginForTest(String login) {
         Model user1 = new Model();
-        user1.setLogin("bohdan");
+        user1.setLogin(login);
         users.add(user1);
     }
 
@@ -32,10 +35,5 @@ public class AllUsers {
             }
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return users.toString();
     }
 }

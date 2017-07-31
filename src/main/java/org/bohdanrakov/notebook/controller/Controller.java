@@ -11,6 +11,10 @@ public class Controller {
 
     private Model model;
     private View view;
+
+    /**
+     * allUsers is a stub for a database with users
+     */
     private AllUsers allUsers = new AllUsers();
 
     public Controller(Model model, View view) {
@@ -18,25 +22,30 @@ public class Controller {
         this.view = view;
     }
 
-    /**
-     *
-     */
+
+    //Working method
     public void processUser() {
         Scanner scanner = new Scanner(System.in);
 
-        getInputs(scanner);
+        //Hardcoded creating of new user with login. To try LoginExistsException
+        allUsers.addUserWithLoginForTest("bohdan");
 
-        addUser(model, scanner);
+        constructModelFromUserInput(scanner);
 
-        System.out.println(allUsers);
+        //Adding another user with same login just before this one
+        // with the same name for testing concurrent input
+        allUsers.addUserWithLoginForTest(model.getLogin());
 
+        addUserToAllUsers(model, scanner);
+
+        commandViewToPrintAllUsers();
     }
 
     /**
-     * Inputs from user
+     * Sets the model fields from user input for future storage in AllUsers
      * @param scanner {@code Scanner}
      */
-    private void getInputs(Scanner scanner) {
+    private void constructModelFromUserInput(Scanner scanner) {
         model.setLogin(getLoginFromUser(scanner));
         model.setFirstName(getUserInputRegex(scanner, View.INPUT_FIRST_NAME, Regexes.NAME));
         model.setLastName(getUserInputRegex(scanner, View.INPUT_LAST_NAME, Regexes.NAME));
@@ -47,21 +56,34 @@ public class Controller {
         model.seteMail(getUserInputRegex(scanner, View.INPUT_EMAIL, Regexes.EMAIL));
     }
 
-    public void addUser(Model model, Scanner scanner) {
+    /**
+     * Method that adds user to the database-like stub allUsers
+     * checks whether login is occupied. If if is, user is asked to change
+     * the login
+     * @param model {@code Model}
+     * @param scanner {@code Scanner}
+     */
+    private void addUserToAllUsers(Model model, Scanner scanner) {
         while (true) {
             try {
                 allUsers.addUser(model);
                 break;
             } catch (LoginExistsException e) {
                 view.printMessage(e.getMessage());
-                model.setLogin(getUserInputRegex(scanner, View.INPUT_LOGIN, Regexes.USER_NAME));
+                model.setLogin(getLoginFromUser(scanner));
             }
         }
     }
 
-    public String getLoginFromUser(Scanner sc) {
+    /**
+     * Method that repeatedly asks user to input a login. If login exists, user is asked again,
+     * until user chooses login which is not occupied
+     * @param sc {@code Scanner}
+     * @return input from user (login)
+     */
+    private String getLoginFromUser(Scanner sc) {
         String login = getUserInputRegex(sc, View.INPUT_LOGIN, Regexes.USER_NAME);
-        while (!allUsers.isLoginOccupied(login)) {
+        while (allUsers.isLoginOccupied(login)) {
             view.printMessage(View.LOGIN_OCCUPIED);
             login = getUserInputRegex(sc, View.INPUT_LOGIN, Regexes.USER_NAME);
         }
@@ -86,5 +108,11 @@ public class Controller {
         }
 
         return input;
+    }
+
+    private void commandViewToPrintAllUsers() {
+        for (Model user: allUsers.getUsers()) {
+            System.out.println(user);
+        }
     }
 }
