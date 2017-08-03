@@ -11,8 +11,7 @@ public class AllUsers {
     private List<Model> users = new ArrayList<>();
 
     public void addUserWithLoginForTest(String login) {
-        Model user1 = new Model();
-        user1.setLogin(login);
+        Model user1 = new Model.Builder().login(login).build();
         users.add(user1);
     }
 

@@ -17,8 +17,7 @@ public class Controller {
      */
     private AllUsers allUsers = new AllUsers();
 
-    public Controller(Model model, View view) {
-        this.model = model;
+    public Controller(View view) {
         this.view = view;
     }
 
@@ -46,14 +45,16 @@ public class Controller {
      * @param scanner {@code Scanner}
      */
     private void constructModelFromUserInput(Scanner scanner) {
-        model.setLogin(getLoginFromUser(scanner));
-        model.setFirstName(getUserInputRegex(scanner, View.INPUT_FIRST_NAME, Regexes.NAME));
-        model.setLastName(getUserInputRegex(scanner, View.INPUT_LAST_NAME, Regexes.NAME));
-        model.setMiddleName(getUserInputRegex(scanner, View.INPUT_MIDDLE_NAME, Regexes.NAME));
-        model.setFullName();
-        model.setNickName(getUserInputRegex(scanner, View.INPUT_NICKNAME, Regexes.USER_NAME));
-        model.setComment(getUserInputRegex(scanner, View.INPUT_COMMENT, Regexes.COMMENT));
-        model.seteMail(getUserInputRegex(scanner, View.INPUT_EMAIL, Regexes.EMAIL));
+
+        model = new Model.Builder()
+                .login(getLoginFromUser(scanner))
+                .firstName(getUserInputRegex(scanner, View.INPUT_FIRST_NAME, Regexes.NAME))
+                .lastName(getUserInputRegex(scanner, View.INPUT_LAST_NAME, Regexes.NAME))
+                .middleName(getUserInputRegex(scanner, View.INPUT_MIDDLE_NAME, Regexes.NAME))
+                .nickName(getUserInputRegex(scanner, View.INPUT_NICKNAME, Regexes.USER_NAME))
+                .comment(getUserInputRegex(scanner, View.INPUT_COMMENT, Regexes.COMMENT))
+                .eMail(getUserInputRegex(scanner, View.INPUT_EMAIL, Regexes.EMAIL))
+                .build();
     }
 
     /**
